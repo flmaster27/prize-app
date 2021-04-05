@@ -10,5 +10,9 @@ namespace App\Contracts;
  */
 interface PrizeServiceFactoryContract
 {
+    /**
+     * @param  string  $type
+     * @return PrizeServiceContract
+     */
     public function getPrizeService(string $type): PrizeServiceContract;
 }
