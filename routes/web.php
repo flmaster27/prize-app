@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserPrizeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard',
+        [UserPrizeController::class, 'index']
+    )->name('dashboard');
+
+    Route::get('/get-prize',
+        [UserPrizeController::class, 'store']
+    )->name('get-prize');
+
+    Route::get('/delete-prize/{userPrize}',
+        [UserPrizeController::class, 'destroy']
+    )->name('delete-prize');
+
+    Route::get('/deliver-prize/{userPrize}',
+        [UserPrizeController::class, 'deliver']
+    )->name('deliver-prize');
+
+    Route::get('/convert-prize/{userPrize}',
+        [UserPrizeController::class, 'convert']
+    )->name('convert-prize');
+});
 
 require __DIR__.'/auth.php';
