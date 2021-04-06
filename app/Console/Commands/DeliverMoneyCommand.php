@@ -15,7 +15,7 @@ class DeliverMoneyCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'money:deliver';
+    protected $signature = 'money:deliver {number=100}';
 
     /**
      * The console command description.
@@ -45,7 +45,7 @@ class DeliverMoneyCommand extends Command
         $userPrizes = UserPrize::query()
             ->where(UserPrizeContract::FIELD_TYPE, PrizeTypeContract::TYPE_MONEY)
             ->whereNull(UserPrizeContract::FIELD_DELIVERED)
-            ->limit(100)
+            ->limit($this->argument('number'))
             ->get()
         ;
 
